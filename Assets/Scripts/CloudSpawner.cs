@@ -1,18 +1,18 @@
 using UnityEngine;
 
-public class CloudSpawner : MonoBehaviour
+public class CloudSpawner : MonoBehaviour, ISpawnable
 {
-    const float SPAWN_CLOUD_DELAY = 0f;
-    const float SPAWN_CLOUD_REPEAT = 5f;
+    const float SPAWN_DELAY = 0f;
+    const float SPAWN_REPEAT = 5f;
 
     [SerializeField] GameObject cloudPrefab;
 
-    void Start()
+    public void Start()
     {
-        InvokeRepeating("SpawnCloud", SPAWN_CLOUD_DELAY, SPAWN_CLOUD_REPEAT);
+        InvokeRepeating("Spawn", SPAWN_DELAY, SPAWN_REPEAT);
     }
 
-    void SpawnCloud()
+    public void Spawn()
     {
         Instantiate(cloudPrefab);
     }

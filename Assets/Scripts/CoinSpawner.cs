@@ -1,23 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinSpawner : MonoBehaviour
+public class CoinSpawner : MonoBehaviour, ISpawnable
 {
-    public GameObject coinPrefab;
-    private bool _keepMakingCoin = true;
+    const float SPAWN_DELAY = 2f;
+    const float SPAWN_REPEAT = 6f;
 
-    void Start()
+    [SerializeField] GameObject coinPrefab;
+
+    public void Start()
     {
-        StartCoroutine(GetNextCoin());
+        InvokeRepeating("Spawn", SPAWN_DELAY, SPAWN_REPEAT);
     }
 
-    IEnumerator GetNextCoin()
+    public void Spawn()
     {
-        while (_keepMakingCoin)
-        {
-            yield return new WaitForSeconds(Random.Range(2f, 6f));
-            Instantiate(coinPrefab);
-        }
+        Instantiate(coinPrefab);
     }
 }
