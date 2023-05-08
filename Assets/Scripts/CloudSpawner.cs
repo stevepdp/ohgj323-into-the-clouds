@@ -1,23 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CloudSpawner : MonoBehaviour
 {
-    public GameObject cloudPrefab;
-    private bool _keepSpawning = true;
+    const float SPAWN_CLOUD_DELAY = 0f;
+    const float SPAWN_CLOUD_REPEAT = 5f;
+
+    [SerializeField] GameObject cloudPrefab;
 
     void Start()
     {
-        StartCoroutine(GetNextCloud());
+        InvokeRepeating("SpawnCloud", SPAWN_CLOUD_DELAY, SPAWN_CLOUD_REPEAT);
     }
 
-    IEnumerator GetNextCloud()
+    void SpawnCloud()
     {
-        while (_keepSpawning)
-        {
-            yield return new WaitForSeconds(Random.Range(2f, 5f));
-            Instantiate(cloudPrefab);
-        }
+        Instantiate(cloudPrefab);
     }
 }
