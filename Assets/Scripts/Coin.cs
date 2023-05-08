@@ -1,51 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using Random = UnityEngine.Random;
 using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    public GameObject player;
+    public static Action OnCoinMissed;
 
-    private void Awake()
-    {
-#if UNITY_EDITOR
-        Debug.unityLogger.logEnabled = true;
-#else
-        Debug.unityLogger.logEnabled = false;
-#endif
-        transform.position = new Vector2(Random.Range(-8.36f, 8.36f), -2.9f);
-    }
+    const float COIN_TIMEOUT = 3f;
+    const float SPAWN_XPOS_MIN = -8.36f;
+    const float SPAWN_XPOS_MAX = -SPAWN_XPOS_MIN;
+    const float SPAWN_YPOS = -2.9f;
+
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        StartCoroutine(SelfDestruct());   
-    }
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.transform.tag == "Player")
-        {
-            Destroy(this.gameObject);
-        }
+        SetCoinXPos();
+        Invoke("CoinMissed", COIN_TIMEOUT);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
-        {   
-            Destroy(this.gameObject);
-        }
+        if (other.gameObject.tag == "Player")
+            Destroy(gameObject);
     }
 
-    IEnumerator SelfDestruct()
+    void CoinMissed()
     {
-        yield return new WaitForSeconds(3f);
-       
-        if (player != null)
-        {
-            var playerRef = player.GetComponent<Player>();
-            if (!playerRef.playerIsFalling) Debug.Log("Coin self destructed. Killing player...");
-            playerRef.ReleasePlayer();
-        }
-        Destroy(this.gameObject);
+        OnCoinMissed?.Invoke();
+        Destroy(gameObject);
+    }
+
+    void SetCoinXPos()
+    {
+        transform.position = new Vector2(Random.Range(SPAWN_XPOS_MIN, SPAWN_XPOS_MAX), SPAWN_YPOS);
     }
 }

@@ -592,10 +592,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3743023351999608431}
   - component: {fileID: 3743023351999608430}
-  - component: {fileID: 3743023351999608429}
   - component: {fileID: 3743023351999608428}
   - component: {fileID: 3743023351999608427}
   - component: {fileID: 3743023351999608426}
+  - component: {fileID: 3743023351999608429}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -634,7 +634,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.000000029802322, y: 0}

@@ -8,6 +8,16 @@ public class Player : MonoBehaviour
     public bool playerIsFalling = false;
     private float _moveSpeed = 5f;
 
+    void OnEnable()
+    {
+        Coin.OnCoinMissed += ReleasePlayer;
+    }
+
+    void OnDisable()
+    {
+        Coin.OnCoinMissed -= ReleasePlayer;
+    }
+
     private void Awake()
     {
 #if UNITY_EDITOR
