@@ -48,10 +48,9 @@ public class Player : MonoBehaviour
     void PlayerFall()
     {
         if (playerIsFalling && !playerIsDead)
-        {
             transform.Translate(-Vector2.up * FALL_SPEED * Time.deltaTime);
-        }
-        else if (playerIsFalling && !playerIsDead && transform.position.y > CEILING)
+        
+        if (playerIsFalling && !playerIsDead && transform.position.y > CEILING)
         {
             playerIsDead = true;
             playerIsFalling = false;
