@@ -9,6 +9,11 @@ public class GameOver : MonoBehaviour
         Player.OnGameOver += OnGameOver;
     }
 
+    void OnDisable()
+    {
+        Player.OnGameOver -= OnGameOver;
+    }
+
     void OnGameOver()
     {
         if (gameOverPanel != null)
